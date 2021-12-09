@@ -14,7 +14,6 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 const Calendar = () => {
-    const [currentDate, setCurrentDate] = React.useState(format(new Date(), "yyyy-MM-dd"));
     const [schedulerData, setSchedulerData] = React.useState([]);
 
     function fetchTrainings() {
@@ -48,19 +47,17 @@ const Calendar = () => {
     React.useEffect(fetchTrainings, []);
 
     return (
-        <>
-            <Scheduler data={schedulerData}>
-                <ViewState defaultCurrentDate={currentDate} />
-                <MonthView />
-                <WeekView />
-                <DayView />
-                <Appointments />
-                <Toolbar />
-                <DateNavigator />
-                <TodayButton />
-                <ViewSwitcher />
-            </Scheduler>
-        </>
+        <Scheduler data={schedulerData}>
+            <ViewState defaultCurrentDate={format(new Date(), "yyyy-MM-dd")} />
+            <MonthView />
+            <WeekView />
+            <DayView />
+            <Appointments />
+            <Toolbar />
+            <DateNavigator />
+            <TodayButton />
+            <ViewSwitcher />
+        </Scheduler>
     );
 
 }
