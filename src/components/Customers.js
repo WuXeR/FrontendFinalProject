@@ -11,6 +11,7 @@ import {
 
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 
 const Customers = () => {
     const [customers, setCustomers] = React.useState([]);
@@ -55,7 +56,10 @@ const Customers = () => {
     }
 
     const columns = [
-        { field: 'add_training', headerName: '', flex: 1, disableColumnMenu: true, sortable: false, filterable: false,
+        { field: 'add_training', flex: 1, disableColumnMenu: true, sortable: false, filterable: false, disableExport: true,
+            renderHeader: (params) => (
+                <FitnessCenterIcon color='success' />
+            ),
             renderCell: (params) => (
                 <IconButton color='success' onClick={() => {
                     setAddTrainingDialogCustomer(params.row);
@@ -93,7 +97,7 @@ const Customers = () => {
                             <GridToolbarColumnsButton />
                             <GridToolbarFilterButton />
                             <GridToolbarDensitySelector />
-                            {/* <GridToolbarExport /> */}
+                            <GridToolbarExport />
                         </GridToolbarContainer>
                     ),
                 }}
@@ -134,7 +138,8 @@ const Customers = () => {
             <Dialog open={addTrainingDialogState} onClose={() => setAddTrainingDialogState(false)}>
                 <DialogTitle>Add New Training For Customer {addTrainingDialogCustomer.firstname} {addTrainingDialogCustomer.lastname}</DialogTitle>
                 <DialogContent>
-                    <TextField label="Date" type="date" variant="outlined" sx={{m:2}} onChange={e => setAddTrainingDialogData({...addTrainingDialogData, date: new Date(e.target.value).toISOString()})} />
+                    <TextField label="Date" type="date" variant="outlined" sx={{m:2}} onChange={e => setAddTrainingDialogData({...addTrainingDialogData, date: e.target.value})} />
+                    <TextField label="Time" type="time" variant="outlined" sx={{m:2}} onChange={e => setAddTrainingDialogData({...addTrainingDialogData, time: e.target.value})} />
                     <TextField label="Duration (min)" type="number" variant="outlined" sx={{m:2}} onChange={e => setAddTrainingDialogData({...addTrainingDialogData, duration: e.target.value})} />
                     <TextField label="Activity" variant="outlined" sx={{m:2}} onChange={e => setAddTrainingDialogData({...addTrainingDialogData, activity: e.target.value})} />
                     <TextField label="Customer" disabled={true} variant="outlined" sx={{m:2}} value={addTrainingDialogCustomer.firstname + ' ' + addTrainingDialogCustomer.lastname}/>
@@ -144,6 +149,10 @@ const Customers = () => {
                     <Button onClick={() => {
                         setAddTrainingDialogState(false);
                         addTrainingDialogData.customer = addTrainingDialogCustomer.links[0].href;
+                        if(addTrainingDialogData.date && addTrainingDialogData.time) {
+                            addTrainingDialogData.date += 'T' + addTrainingDialogData.time + ':00';
+                            delete addTrainingDialogData.time;
+                        }
                         fetch(global.ApiURL + "/api/trainings", {
                             method: "post",
                             headers: {

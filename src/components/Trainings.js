@@ -6,13 +6,10 @@ import {
     GridToolbarContainer,
     GridToolbarColumnsButton,
     GridToolbarFilterButton,
-    GridToolbarDensitySelector,
-    GridToolbarExport
+    GridToolbarDensitySelector
 } from '@mui/x-data-grid';
 
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-
-// TRAINING FAILS IF CUSTOMER RETURNS 404
 
 const Trainings = () => {
     const [trainings, setTrainings] = React.useState([]);
@@ -71,7 +68,6 @@ const Trainings = () => {
                             <GridToolbarColumnsButton />
                             <GridToolbarFilterButton />
                             <GridToolbarDensitySelector />
-                            {/* <GridToolbarExport /> */}
                         </GridToolbarContainer>
                     ),
                 }}
