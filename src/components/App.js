@@ -11,6 +11,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import TodayIcon from '@mui/icons-material/Today';
 import BarChartIcon from '@mui/icons-material/BarChart';
+import HomeIcon from '@mui/icons-material/Home';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         </Routes>
         <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
           <BottomNavigation showLabels sx={{backgroundColor: '#1e1e1f', color: '#fff'}}>
+            <BottomNavigationAction component={Link} to="/" label="Home" icon={<HomeIcon />} sx={{color: '#fff'}} />
             <BottomNavigationAction component={Link} to="/customers" label="Customers" icon={<PersonIcon />} sx={{color: '#fff'}} />
             <BottomNavigationAction component={Link} to="/trainings" label="Trainings" icon={<FitnessCenterIcon />} sx={{color: '#fff'}} />
             <BottomNavigationAction component={Link} to="/calendar" label="Calendar" icon={<TodayIcon />} sx={{color: '#fff'}} />
