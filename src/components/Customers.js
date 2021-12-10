@@ -27,6 +27,10 @@ const Customers = () => {
         fetch(global.ApiURL + "/api/customers")
         .then(res => res.json())
         .then(data => {
+            if(data.content[0].rel === null) {
+                setCustomers([]);
+                return;
+            }
             data.content.forEach((customer, index) => {
                 customer.id = index;
             });

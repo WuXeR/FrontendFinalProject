@@ -20,10 +20,15 @@ const Trainings = () => {
         fetch(global.ApiURL + "/api/trainings")
         .then(res => res.json())
         .then(data => {
+            if(data.content[0].rel === null) {
+                setTrainings([]);
+                return;
+            }
             var promises = [];
             data.content.forEach((training, index) => {
                 training.id = index;
-                promises.push(fetch(training.links[2].href).then(res => res.json()));
+                if(training.links)
+                    promises.push(fetch(training.links[2].href).then(res => res.json()));
             });
             Promise.all(promises)
                 .then((results) => {
@@ -31,6 +36,7 @@ const Trainings = () => {
                         data.content[index].customer = `${res.firstname} ${res.lastname}`;
                     });
                     setTrainings(data.content)
+                    handleSelection([]);
                 });
         })
         .catch(err => console.log(err));
@@ -95,7 +101,7 @@ const Trainings = () => {
                         Promise.all(promises)
                             .then(() => {
                                 fetchTrainings();
-                            })
+                            });
                     }} autoFocus>Confirm</Button>
                 </DialogActions>
             </Dialog>

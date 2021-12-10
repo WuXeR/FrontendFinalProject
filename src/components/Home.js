@@ -6,6 +6,7 @@ import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import TodayIcon from '@mui/icons-material/Today';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 const Home = () => {
 
@@ -21,6 +22,9 @@ const Home = () => {
                 <Button variant="outlined"><TodayIcon />Calendar</Button>
                 <Button variant="outlined"><BarChartIcon />Statistics</Button>
             </Stack>
+            <Button variant="outlined" color="error" onClick={() => {
+                fetch(global.ApiURL + "/reset", {method: "post"})
+            }}><RestartAltIcon />Reset</Button>
         </Stack>
     )
 
