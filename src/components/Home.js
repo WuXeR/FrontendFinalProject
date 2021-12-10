@@ -18,9 +18,9 @@ const Home = () => {
             }} />
             <Stack alignItems="center" justifyContent="center" direction="row" spacing={2} sx={{m:5}}>
                 <Button variant="outlined" href="/customers"><PersonIcon />Customers</Button>
-                <Button variant="outlined"><FitnessCenterIcon />Trainings</Button>
-                <Button variant="outlined"><TodayIcon />Calendar</Button>
-                <Button variant="outlined"><BarChartIcon />Statistics</Button>
+                <Button variant="outlined" href="/trainings"><FitnessCenterIcon />Trainings</Button>
+                <Button variant="outlined" href="/calendar"><TodayIcon />Calendar</Button>
+                <Button variant="outlined" href="/statistics"><BarChartIcon />Statistics</Button>
             </Stack>
             <Button variant="outlined" color="error" onClick={() => {
                 fetch(global.ApiURL + "/reset", {method: "post"})
